@@ -1,16 +1,13 @@
-# This is a sample Python script.
+import pandas as pd
+import numpy as np
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+data = pd.io.parsers.read_csv('Dataset/ratings.dat', names = ['user_id', 'movie_id', 'rating', 'time'],
+                              engine = 'python', sep = '::')
+movies = pd.io.parsers.read_csv('Dataset/movies.dat', names = ['movie_id', 'title', 'genre'],
+                                engine = 'python', sep = '::', encoding= 'windows-1252')
 
+ratings_mat = np.ndarray(shape = (np.max(data.movie_id.values), np.max(data.user_id.values)),
+                         dtype = np.uint8)
+ratings_mat[data.movie_id.values-1, data.user_id.values-1] = data.rating.values
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+norm
